@@ -1,0 +1,117 @@
+/* Basic styles */
+/* Carousel Section - Full Width */
+#home {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    /* This will make the slider cover 80% of the viewport height */
+}
+
+#retinoCarousel {
+    width: 80%;
+    /* Slider width to cover 80% of the viewport */
+}
+
+.carousel-inner img {
+    height: 80vh;
+    /* Ensures the images fit well in the carousel */
+    object-fit: cover;
+    /* Maintains image aspect ratio */
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Transparent background for better readability */
+    padding: 10px;
+    border-radius: 8px;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #eef3f8;
+}
+
+header h1 {
+    font-weight: bold;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+footer {
+    background-color: #234a7c;
+}
+
+/* Floating Chat Icon */
+.chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0077cc;
+    padding: 10px;
+    border-radius: 50%;
+    /* Makes the entire button rounded */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+    width: 70px;
+    /* Adjust width */
+    height: 70px;
+    /* Adjust height */
+}
+
+.chat-icon:hover {
+    background-color: #005fa3;
+}
+
+.chat-icon img {
+    width: 50px;
+    /* Adjusts the size of the image */
+    height: 50px;
+    border-radius: 50%;
+    /* Makes the image round */
+}
+
+.chat-icon p {
+    display: none;
+    /* Hide the text inside the chat icon to keep it clean */
+}
+
+.chatbot-modal {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 320px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.chatbot-content {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.chatbot-response {
+    font-size: 0.9rem;
+}
