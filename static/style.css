@@ -1,0 +1,272 @@
+/* Fonts */
+/* About Section Styling */
+#about p,
+#about ul,
+#about ol {
+    color: #4D4D4D;
+    /* Dark gray text for readability */
+}
+
+#about h4 {
+    /*color: #6C63FF;*/
+    color: #1a1764;
+    /* Purple for subsection headings */
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#about ul {
+    background-color: #F8F9FA;
+    /* Light gray background for the list */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+}
+
+#about ul li {
+    margin-bottom: 10px;
+}
+
+#about ol {
+    background-color: #F8F9FA;
+    /* Light gray for ordered list */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+}
+
+#about .list-group-item {
+    background-color: transparent;
+    /* Remove default background */
+    border: none;
+    /* Remove default border */
+    padding-left: 0;
+    /* Align text with parent */
+    color: #4D4D4D;
+    /* Match text color to the rest of the section */
+}
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1,
+h2,
+h4 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Color Palette */
+.bg-purple {
+    /*background-color: #6C63FF !important;-----lighter*/
+    background-color: #1a1764!important;
+
+}
+
+.text-purple {
+    /*color: #6C63FF !important;*/
+    color:#1a1764;
+}
+
+.bg-gray {
+    background-color: #F8F9FA !important;
+}
+
+.btn-cyan {
+    background-color: #4DD0E1 !important;
+    color: #fff !important;
+}
+
+.btn-cyan:hover {
+    background-color: #3CB3C5 !important;
+}
+
+.btn-outline-purple {
+    /*border: 2px solid #6C63FF !important;*/
+    border: 2px solid #1a1764;
+
+    /*color: #6C63FF !important;*/
+    color: #1a1764;
+
+}
+
+.btn-outline-purple:hover {
+    /*background-color: #6C63FF !important;*/
+    background-color:#1a1764;
+    color: #fff !important;
+}
+
+/* Chat Icon */
+.chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    /*background-color: #6C63FF;*/
+    background-color: #1a1764;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chat-icon img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Chatbot Modal */
+.chatbot-modal {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 350px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+/* Accordion Styling */
+.accordion .card {
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.accordion .card-header {
+    /*background-color: #6C63FF;*/
+    background-color: #1a1764;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.accordion .btn-link {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.accordion .btn-link:hover {
+    color: #4DD0E1;
+}
+
+.accordion .card-body {
+    background-color: #F8F9FA;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 100vh;
+    /* Full viewport height */
+    background-color: #ffffff;
+    /* White background */
+    color: #333333;
+    /* Neutral text color for better readability */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    /* Large, impactful heading */
+    font-weight: 700;
+    color: #1a1764;
+    /* New primary color */
+}
+
+.hero-section p {
+    font-size: 1.5rem;
+    /* Slightly larger subtitle */
+    margin-top: 10px;
+    color: #555555;
+    /* Subtle muted text for subtitle */
+}
+
+.hero-section .btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    /* Rounded buttons for a modern design */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.hero-section .btn-cyan {
+    background-color: #4DD0E1;
+    /* Cyan button color */
+    color: white;
+    border: none;
+}
+
+.hero-section .btn-cyan:hover {
+    background-color: #3CB3C5;
+    /* Darker cyan on hover */
+    transform: scale(1.05);
+    /* Slight zoom on hover */
+}
+
+.hero-section .btn-outline-primary {
+    border: 2px solid #1a1764;
+    /* Border in the new primary color */
+    color: #1a1764;
+    /* Text in the new primary color */
+    background: none;
+}
+
+.hero-section .btn-outline-primary:hover {
+    background-color: #1a1764;
+    /* Fill color on hover */
+    color: white;
+    /* White text on hover */
+    transform: scale(1.05);
+    /* Slight zoom on hover */
+}
+/* Transparent Image Styling */
+.transparent-image {
+    max-width: 80%;
+    /* Adjusts the size relative to its container */
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+    /* Adds a soft shadow for better visibility */
+    transform: scale(1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    /* Smooth hover effects */
+}
+
+.transparent-image:hover {
+    transform: scale(1.05);
+    /* Slight zoom on hover */
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.3));
+    /* Darker shadow on hover */
+}
+/* Ensure pages fill the viewport and the footer stays at the bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+    /* Expands to fill available vertical space */
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    background-color: #F8F9FA;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1.5rem;
+    color: #4D4D4D;
+}

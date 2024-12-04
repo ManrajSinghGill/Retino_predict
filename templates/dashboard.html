@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <!-- Include Navbar -->
+    <div id="navbar"></div>
+    <script>
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("navbar").innerHTML = data);
+    </script>
+
+    <!-- Dashboard Section -->
+    <main class="container py-5 flex-grow-1">
+        <h2 class="text-purple text-center mb-4">Dashboard</h2>
+
+        <div class="row">
+            <!-- Average Glucose Card -->
+            <div class="col-md-4">
+                <div class="card text-center shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-purple">Average Glucose</h5>
+                        <p class="card-text" id="avgGlucose">-- mg/dL</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Calories Card -->
+            <div class="col-md-4">
+                <div class="card text-center shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-purple">Total Calories</h5>
+                        <p class="card-text" id="totalCalories">-- kcal</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entries Logged Card -->
+            <div class="col-md-4">
+                <div class="card text-center shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-purple">Entries Logged</h5>
+                        <p class="card-text" id="entriesCount">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 text-center">
+            <h4 class="text-purple">Welcome to your personalized health dashboard!</h4>
+            <p class="text-muted">Track and monitor your glucose levels and calorie intake over time.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+        <p>&copy; 2024 RetinoPredict. All rights reserved.</p>
+    </footer>
+
+    <script src="../static/script.js"></script>
+</body>
+
+</html>
