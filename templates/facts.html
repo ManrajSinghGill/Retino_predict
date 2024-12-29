@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Facts and Insights</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="bg-purple text-white py-3">
+        <!-- Include Navbar -->
+        <div id="navbar"></div>
+        <script>
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(data => document.getElementById("navbar").innerHTML = data);
+        </script>
+    </header>
+
+    <!-- Facts and Graphs Section -->
+    <section id="facts" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center text-purple mb-4">Understanding Diabetes Through Data</h2>
+            
+
+            <!-- Chart 1: Global Diabetes Distribution -->
+            <div class="row mb-5 align-items-center">
+                <div class="col-md-6">
+                    <h4 class="text-center text-purple">Global Diabetes Distribution</h4>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="globalDiabetesChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-muted">This chart highlights the distribution of diabetes cases globally. While
+                        diagnosed cases make up 48%, prediabetes accounts for 34%, indicating a significant opportunity
+                        for early intervention and prevention.</p>
+                </div>
+            </div>
+
+            <!-- Chart 2: Diabetes Rates by Age -->
+            <div class="row mb-5 align-items-center">
+                <div class="col-md-6 order-md-2">
+                    <h4 class="text-center text-purple">Diabetes Rates by Age Group</h4>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="ageGroupChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <p class="text-muted">Age is a significant factor in diabetes prevalence. The 40-59 and 60+ age
+                        groups show the highest rates, emphasizing the need for targeted health interventions in these
+                        demographics.</p>
+                </div>
+            </div>
+
+            <!-- Chart 3: Diabetes Growth Over Time -->
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h4 class="text-center text-purple">Diabetes Cases Over the Years</h4>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-muted">The global rise in diabetes cases is concerning, with projections indicating
+                        over 537 million cases by 2025. This chart underscores the need for proactive measures such as
+                        lifestyle changes and early detection tools like RetinoPredict.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <p>&copy; 2024 RetinoPredict. All rights reserved.</p>
+    </footer>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom JS for Charts -->
+    <script>
+        // Global Diabetes Distribution Chart
+        const globalCtx = document.getElementById('globalDiabetesChart').getContext('2d');
+        new Chart(globalCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Diagnosed', 'Undiagnosed', 'Prediabetes'],
+                datasets: [{
+                    data: [48, 18, 34],
+                    backgroundColor: ['#AEDFF7', '#FFEDB5', '#FECACA'],
+                    borderColor: ['#5BC0EB', '#FDE68A', '#F87171'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: { size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Diabetes Rates by Age Group Chart
+        const ageCtx = document.getElementById('ageGroupChart').getContext('2d');
+        new Chart(ageCtx, {
+            type: 'bar',
+            data: {
+                labels: ['<20', '20-39', '40-59', '60+'],
+                datasets: [{
+                    label: 'Cases (millions)',
+                    data: [10, 40, 180, 290],
+                    backgroundColor: ['#AEDFF7', '#FFEDB5', '#FECACA', '#D3F9D8'],
+                    borderColor: ['#5BC0EB', '#FDE68A', '#F87171', '#86EFAC'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Age Group' } },
+                    y: { beginAtZero: true, title: { display: true, text: 'Cases (millions)' } }
+                }
+            }
+        });
+
+        // Diabetes Cases Over Time Chart
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['2010', '2015', '2020', '2025'],
+                datasets: [{
+                    label: 'Cases (millions)',
+                    data: [382, 415, 463, 537],
+                    borderColor: '#86EFAC',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#22C55E',
+                    fill: true,
+                    backgroundColor: 'rgba(134, 239, 172, 0.2)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Year' } },
+                    y: { beginAtZero: true, title: { display: true, text: 'Cases (millions)' } }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

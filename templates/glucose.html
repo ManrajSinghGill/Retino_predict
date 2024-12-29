@@ -7,6 +7,7 @@
     <title>Log Glucose Levels</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -45,6 +46,12 @@
                 <!-- Dynamic Entries Will Be Added Here -->
             </tbody>
         </table>
+
+        <!-- Visualize Button -->
+        <button id="visualizeBtn" class="btn btn-primary mt-4" onclick="visualizeData()">Visualize Chart</button>
+
+        <!-- Canvas for Chart (Initially hidden) -->
+        <canvas id="glucoseChart" width="400" height="200" style="display: none;"></canvas>
     </main>
 
     <!-- Footer -->
@@ -53,6 +60,138 @@
     </footer>
 
     <script src="../static/script.js"></script>
+    <script>
+        // Get data from local storage or initialize an empty array
+        let glucoseData = JSON.parse(localStorage.getItem('glucoseData')) || [];
+
+        // Function to update the table
+        function updateTable() {
+            const glucoseTable = document.getElementById('glucoseTable');
+            glucoseTable.innerHTML = '';
+            glucoseData.forEach(entry => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${entry.date}</td><td>${entry.glucose}</td>`;
+                glucoseTable.appendChild(row);
+            });
+        }
+
+        // Function to visualize the data (chart)
+        function visualizeData() {
+            // Prepare data for chart
+            const labels = glucoseData.map(entry => entry.date);
+            const glucoseLevels = glucoseData.map(entry => entry.glucose);
+
+            // Get the canvas context
+            const ctx = document.getElementById('glucoseChart').getContext('2d');
+
+            // Create a gradient color for the line
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(75, 192, 192, 1)');
+            gradient.addColorStop(1, 'rgba(153, 102, 255, 1)');
+
+            // Render Chart
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Glucose Level (mg/dL)',
+                        data: glucoseLevels,
+                        borderColor: gradient,
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        fill: true,  // Filling under the line with gradient
+                        tension: 0.4, // Smooth the line
+                        pointRadius: 5, // Point radius to highlight data points
+                        pointBackgroundColor: 'rgba(75, 192, 192, 1)', // Point color
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Glucose Levels Over Time',
+                            font: {
+                                size: 20
+                            },
+                            color: '#333'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `Date: ${tooltipItem.label}, Level: ${tooltipItem.raw} mg/dL`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date',
+                                font: {
+                                    size: 16
+                                }
+                            },
+                            grid: {
+                                display: true,
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Glucose Level (mg/dL)',
+                                font: {
+                                    size: 16
+                                }
+                            },
+                            min: 0,
+                            ticks: {
+                                stepSize: 20
+                            },
+                            grid: {
+                                display: true,
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Show the chart canvas after visualizing
+            document.getElementById('glucoseChart').style.display = 'block';
+        }
+
+        // Event listener for form submission
+        document.getElementById('glucoseForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get the glucose level and date from the form
+            const glucose = document.getElementById('glucose').value;
+            const date = document.getElementById('date').value;
+
+            // Save data in an object
+            const entry = { glucose: parseInt(glucose), date: date };
+
+            // Add the entry to the glucose data array
+            glucoseData.push(entry);
+
+            // Save the updated glucose data to local storage
+            localStorage.setItem('glucoseData', JSON.stringify(glucoseData));
+
+            // Clear the form inputs
+            document.getElementById('glucose').value = '';
+            document.getElementById('date').value = '';
+
+            // Update the table with the new data
+            updateTable();
+        });
+
+        // Initial call to display data
+        updateTable();
+    </script>
 </body>
 
 </html>
