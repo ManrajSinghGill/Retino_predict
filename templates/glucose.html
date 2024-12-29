@@ -47,8 +47,12 @@
             </tbody>
         </table>
 
-        <!-- Visualize Button -->
-        <button id="visualizeBtn" class="btn btn-primary mt-4" onclick="visualizeData()">Visualize Chart</button>
+        <!-- Buttons for Visualization and Deleting Entries -->
+        <div class="d-flex justify-content-between mt-4">
+            <button id="visualizeBtn" class="btn btn-primary" onclick="visualizeData()">Visualize Chart</button>
+            <button id="deleteEntriesBtn" class="btn btn-danger" onclick="deleteAllEntries()">Delete All
+                Entries</button>
+        </div>
 
         <!-- Canvas for Chart (Initially hidden) -->
         <canvas id="glucoseChart" width="400" height="200" style="display: none;"></canvas>
@@ -84,6 +88,17 @@
             // Get the canvas context
             const ctx = document.getElementById('glucoseChart').getContext('2d');
 
+            // Prepare the background colors based on glucose levels
+            const backgroundColors = glucoseLevels.map(level => {
+                if (level > 180) {
+                    return 'rgba(255, 0, 0, 0.4)'; // Red for dangerous levels
+                } else if (level <= 140) {
+                    return 'rgba(0, 255, 0, 0.4)'; // Green for healthy levels
+                } else {
+                    return 'rgba(255, 165, 0, 0.4)'; // Orange for moderate levels
+                }
+            });
+
             // Create a gradient color for the line
             const gradient = ctx.createLinearGradient(0, 0, 0, 400);
             gradient.addColorStop(0, 'rgba(75, 192, 192, 1)');
@@ -98,7 +113,7 @@
                         label: 'Glucose Level (mg/dL)',
                         data: glucoseLevels,
                         borderColor: gradient,
-                        backgroundColor: gradient,
+                        backgroundColor: backgroundColors, // Apply dynamic background colors
                         borderWidth: 3,
                         fill: true,  // Filling under the line with gradient
                         tension: 0.4, // Smooth the line
@@ -188,6 +203,14 @@
             // Update the table with the new data
             updateTable();
         });
+
+        // Function to delete all entries
+        function deleteAllEntries() {
+            // Clear the glucose data from localStorage and the table
+            localStorage.removeItem('glucoseData');
+            glucoseData = [];
+            updateTable();
+        }
 
         // Initial call to display data
         updateTable();

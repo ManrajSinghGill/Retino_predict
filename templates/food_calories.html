@@ -85,6 +85,31 @@
                             <td>86 kcal</td>
                             <td>High in beta-carotene</td>
                         </tr>
+                        <tr>
+                            <td>Banana</td>
+                            <td>89 kcal</td>
+                            <td>Rich in potassium, vitamin C</td>
+                        </tr>
+                        <tr>
+                            <td>Carrot</td>
+                            <td>41 kcal</td>
+                            <td>Rich in beta-carotene, vitamin A</td>
+                        </tr>
+                        <tr>
+                            <td>Almonds</td>
+                            <td>579 kcal</td>
+                            <td>High in healthy fats, vitamin E</td>
+                        </tr>
+                        <tr>
+                            <td>Spinach</td>
+                            <td>23 kcal</td>
+                            <td>Rich in iron, vitamin K</td>
+                        </tr>
+                        <tr>
+                            <td>Greek Yogurt</td>
+                            <td>59 kcal</td>
+                            <td>Rich in protein, probiotics</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -141,8 +166,14 @@
             </tbody>
         </table>
 
-        <!-- Visualize Button -->
-        <button id="visualizeBtn" class="btn btn-primary mt-4" onclick="visualizeData()">Visualize Chart</button>
+        <!-- Button Container for alignment -->
+        <div class="d-flex justify-content-between mt-4">
+            <!-- Visualize Button -->
+            <button id="visualizeBtn" class="btn btn-primary" onclick="visualizeData()">Visualize Chart</button>
+
+            <!-- Delete Entries Button -->
+            <button id="deleteEntriesBtn" class="btn btn-danger" onclick="deleteEntries()">Delete All Entries</button>
+        </div>
 
         <!-- Canvas for Chart (Initially hidden) -->
         <canvas id="glucoseChart" width="400" height="200" style="display: none;"></canvas>
@@ -176,7 +207,12 @@
                 salmon: 208,
                 broccoli: 34,
                 'chicken breast': 165,
-                'sweet potato': 86
+                'sweet potato': 86,
+                banana: 89,
+                carrot: 41,
+                almonds: 579,
+                spinach: 23,
+                'greek yogurt': 59
             };
 
             if (calorieData[foodInput] && weightInput) {
@@ -203,72 +239,69 @@
             });
         }
 
-        // Handle form submission for logging calories
-        document.getElementById('calorieForm').addEventListener('submit', function (event) {
-            event.preventDefault();
+        // Handle form submission to log calories
+        document.getElementById('calorieForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
             const calories = document.getElementById('calories').value;
             const date = document.getElementById('date').value;
 
             if (calories && date) {
                 const newEntry = { calories, date };
-
-                // Get existing entries from localStorage or create a new array
                 const entries = JSON.parse(localStorage.getItem('calorieEntries')) || [];
                 entries.push(newEntry);
-
-                // Save updated entries to localStorage
                 localStorage.setItem('calorieEntries', JSON.stringify(entries));
 
-                // Reload the entries to update the table
                 loadEntries();
-
-                // Clear the form
-                document.getElementById('calorieForm').reset();
+                this.reset(); // Reset form fields
             }
         });
 
-        // Visualize button functionality to create a chart
+        // Visualize Chart (Dummy data for now)
         function visualizeData() {
-            const entries = JSON.parse(localStorage.getItem('calorieEntries')) || [];
-            const labels = entries.map(entry => entry.date);
-            const data = entries.map(entry => entry.calories);
-
-            // Create a chart using Chart.js
             const ctx = document.getElementById('glucoseChart').getContext('2d');
-            new Chart(ctx, {
+            const data = {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                datasets: [{
+                    label: 'Calories',
+                    data: [200, 180, 250, 300, 220],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            const config = {
                 type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Calories Intake (kcal)',
-                        data: data,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1,
-                        fill: false
-                    }]
-                },
+                data: data,
                 options: {
                     responsive: true,
                     scales: {
-                        x: {
-                            title: { display: true, text: 'Date' }
-                        },
                         y: {
-                            title: { display: true, text: 'Calories (kcal)' },
                             beginAtZero: true
                         }
                     }
                 }
-            });
+            };
 
-            // Show the chart
-            document.getElementById('glucoseChart').style.display = 'block';
+            const chart = new Chart(ctx, config);
+            document.getElementById('glucoseChart').style.display = 'block'; // Show chart
         }
 
-        // Initial load of entries when the page loads
+        // Delete All Entries
+        function deleteEntries() {
+            localStorage.removeItem('calorieEntries');
+            loadEntries();
+        }
+
+        // Initial load of entries
         loadEntries();
     </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

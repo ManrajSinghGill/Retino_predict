@@ -270,3 +270,8 @@ main {
     font-size: 1.5rem;
     color: #4D4D4D;
 }
+.hero-title {
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
